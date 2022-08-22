@@ -1,0 +1,35 @@
+<div class="about-container">
+  <h1 class="about-title">{{ film.title }}</h1>
+  <p class="about-info">
+    <span class="about-rating">{{ film.rating }}</span> /
+    <span
+      class="about-category"
+      *ngFor="let category of film.category; let last = last"
+      >{{ category }}<span *ngIf="!last">, </span></span
+    >
+    /
+    <span class="about-length">{{ film.length | filmLength }}</span>
+  </p>
+  <img
+    src="../../../assets/images/dvd-case.png"
+    alt="dvd-case"
+    class="about-img"
+    height="500"
+  />
+  <p class="about-description">
+    {{ film.description }}
+  </p>
+  <p class="about-cast" *ngIf="film.cast">
+    Starring:
+    <span *ngFor="let member of film.cast; let last = last"
+      >{{ member | titlecase }}<span *ngIf="!last">, </span></span
+    >
+  </p>
+  <p class="about-features">
+    Special features:
+    <span *ngFor="let feature of film.specialFeatures; let last = last"
+      >{{ feature | titlecase }}<span *ngIf="!last">, </span></span
+    >
+  </p>
+  <app-rent [currentFilm]="film"></app-rent>
+</div>

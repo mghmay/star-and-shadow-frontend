@@ -1,0 +1,17 @@
+<div class="form-container" (currentFilm)="(currentFilm)">
+  <form
+    #inventoryForm="ngForm"
+    (ngSubmit)="onSubmit(inventoryForm)"
+    class="inventory-form"
+  >
+    <select name="inventory" ngModel>
+      <option
+        *ngFor="let item of currentFilm.inventory | keyvalue"
+        [value]="item.key"
+      >
+        {{ item.key }}
+      </option>
+    </select>
+    <button class="rental-button" type="submit">Rent it!</button>
+  </form>
+</div>

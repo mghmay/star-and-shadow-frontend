@@ -1,0 +1,12 @@
+<div class="search-container">
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="search-form">
+    <input
+      type="text"
+      class="search-input"
+      name="search"
+      ngModel
+      placeholder="Search films"
+    />
+    <button class="search-button">Submit</button>
+  </form>
+</div>

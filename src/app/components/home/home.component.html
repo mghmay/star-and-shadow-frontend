@@ -1,0 +1,22 @@
+<div class="films-container content">
+  <ng-container *ngFor="let film of films">
+    <div class="film" (click)="openFilm(film.filmId)">
+      <div class="film-thumb-container">
+        <img
+          src="../../../assets/images/dvd-case.png"
+          alt="thumbnail"
+          class="film-thumbnail"
+        />
+      </div>
+      <div class="film-description">
+        <p class="film-title">{{ film.title | titlecase }}</p>
+        <p class="film-category">
+          <span *ngFor="let category of film.category; let last = last"
+            >{{ category }}<span *ngIf="!last">, </span></span
+          >
+        </p>
+        <p class="film-rating">{{ film.rating }}</p>
+      </div>
+    </div>
+  </ng-container>
+</div>

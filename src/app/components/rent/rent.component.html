@@ -1,5 +1,5 @@
-<div class="form-container" (currentFilm)="(currentFilm)">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="inventory-form">
+<div class="rent-container" (currentFilm)="(currentFilm)">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="rent-form">
     <label for="inventory">Pick a rental store:</label>
     <select
       formControlName="inventory"
@@ -18,7 +18,7 @@
     >
       <div *ngIf="f['inventory'].errors?.['required']">Store is required.</div>
     </div>
-    <button class="inventory-button" type="submit" [disabled]="!form.valid">
+    <button class="rent-button" type="submit" [disabled]="!form.valid">
       Rent it!
     </button>
   </form>

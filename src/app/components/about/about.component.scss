@@ -1,0 +1,24 @@
+.about {
+  &-container {
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: aliceblue;
+    border: 1px solid grey;
+    display: flex;
+    flex-direction: column;
+    p,
+    h1 {
+      margin-left: 10px;
+      color: firebrick;
+    }
+    span {
+      color: black;
+    }
+    img {
+      align-self: center;
+    }
+  }
+  &-description {
+    margin-bottom: 20px;
+  }
+}

@@ -44,7 +44,7 @@ export class RentComponent implements OnInit, OnChanges {
   }
   onSubmit(): void {
     const inventoryId = this.currentFilm.inventory[this.inventoryLocation][0];
-    const filmId = this.currentFilm.filmId;
+    const staffId = ENV.STAFF_MODEL.staffId;
     const customerId = ENV.MODEL_CUSTOMER.customerId;
 
     if (!customerId) {
@@ -52,7 +52,7 @@ export class RentComponent implements OnInit, OnChanges {
     }
     const rental: Rental = {
       inventoryId: inventoryId,
-      filmId: filmId,
+      staffId: staffId,
       customerId: customerId,
     };
     this.onRentFilm.emit(rental);

@@ -4,6 +4,6 @@ export interface Inventory {
 
 export interface Rental {
   customerId: number;
-  filmId: number;
+  staffId: number;
   inventoryId: number;
 }

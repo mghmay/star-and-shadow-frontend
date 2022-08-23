@@ -5,6 +5,7 @@ import { Film } from 'src/app/interfaces/film';
 import { APIResponse } from 'src/app/interfaces/http';
 import { Rental } from 'src/app/interfaces/inventory';
 import { FilmService } from 'src/app/services/film.service';
+import { RentalService } from 'src/app/services/rental.service';
 
 @Component({
   selector: 'app-about',
@@ -13,10 +14,12 @@ import { FilmService } from 'src/app/services/film.service';
 })
 export class AboutComponent implements OnInit {
   filmSub: Subscription = new Subscription();
+  rentalSub: Subscription = new Subscription();
   film: Film = {} as Film;
   rental: Rental = {} as Rental;
   constructor(
     private filmService: FilmService,
+    private rentalService: RentalService,
     private activatedRoute: ActivatedRoute
   ) {}
 
@@ -37,6 +40,14 @@ export class AboutComponent implements OnInit {
   }
 
   rentFilm(rental: Rental): void {
-    this.rental = rental;
+    this.rentalSub = this.rentalService
+      .postRental(rental)
+      .subscribe((response: any) => {
+        if (response.status === 200) {
+          alert('Rental created');
+        } else {
+          alert('Hmm, something went wrong' + response.message);
+        }
+      });
   }
 }

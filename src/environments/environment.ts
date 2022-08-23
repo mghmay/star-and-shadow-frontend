@@ -14,6 +14,9 @@ export const environment = {
     email: 'MARY.SMITH@sakilacustomer.org',
     addressId: 5,
   },
+  STAFF_MODEL: {
+    staffId: 2,
+  },
 };
 
 /*

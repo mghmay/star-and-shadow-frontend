@@ -31,5 +31,5 @@
       >{{ feature | titlecase }}<span *ngIf="!last">, </span></span
     >
   </p>
-  <app-rent [currentFilm]="film"></app-rent>
+  <app-rent [currentFilm]="film" (onRentFilm)="rentFilm($event)"></app-rent>
 </div>

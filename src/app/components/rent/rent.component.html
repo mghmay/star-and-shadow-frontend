@@ -1,17 +1,25 @@
 <div class="form-container" (currentFilm)="(currentFilm)">
-  <form
-    #inventoryForm="ngForm"
-    (ngSubmit)="onSubmit(inventoryForm)"
-    class="inventory-form"
-  >
-    <select name="inventory" ngModel>
-      <option
-        *ngFor="let item of currentFilm.inventory | keyvalue"
-        [value]="item.key"
-      >
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="inventory-form">
+    <label for="inventory">Pick a rental store:</label>
+    <select
+      formControlName="inventory"
+      class="form-control"
+      (change)="changeInventory($event)"
+    >
+      <option disabled>Select a store</option>
+      <option>Choose a store</option>
+      <option *ngFor="let item of inventory | keyvalue">
         {{ item.key }}
       </option>
     </select>
-    <button class="rental-button" type="submit">Rent it!</button>
+    <div
+      *ngIf="f.inventory.touched && f.inventory.invalid"
+      class="alert alert-danger"
+    >
+      <div *ngIf="f['inventory'].errors?.['required']">Store is required.</div>
+    </div>
+    <button class="inventory-button" type="submit" [disabled]="!form.valid">
+      Rent it!
+    </button>
   </form>
 </div>

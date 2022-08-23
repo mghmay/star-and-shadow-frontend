@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Film } from 'src/app/interfaces/film';
 import { APIResponse } from 'src/app/interfaces/http';
+import { Rental } from 'src/app/interfaces/inventory';
 import { FilmService } from 'src/app/services/film.service';
 
 @Component({
@@ -13,6 +14,7 @@ import { FilmService } from 'src/app/services/film.service';
 export class AboutComponent implements OnInit {
   filmSub: Subscription = new Subscription();
   film: Film = {} as Film;
+  rental: Rental = {} as Rental;
   constructor(
     private filmService: FilmService,
     private activatedRoute: ActivatedRoute
@@ -32,5 +34,9 @@ export class AboutComponent implements OnInit {
       .subscribe((response: any) => {
         this.film = response.data;
       });
+  }
+
+  rentFilm(rental: Rental): void {
+    this.rental = rental;
   }
 }

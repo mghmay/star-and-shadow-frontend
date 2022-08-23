@@ -1,7 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Film } from 'src/app/interfaces/film';
-import { Inventory } from 'src/app/interfaces/inventory';
+import { Inventory, Rental } from 'src/app/interfaces/inventory';
 import { environment as ENV } from 'src/environments/environment';
 
 @Component({
@@ -9,20 +17,44 @@ import { environment as ENV } from 'src/environments/environment';
   templateUrl: './rent.component.html',
   styleUrls: ['./rent.component.scss'],
 })
-export class RentComponent implements OnInit {
+export class RentComponent implements OnInit, OnChanges {
   @Input() currentFilm: Film = {} as Film;
+  @Output() onRentFilm: EventEmitter<any> = new EventEmitter<any>();
+  inventoryLocation: string = '';
   inventory: Inventory = {} as Inventory;
+
+  form = new FormGroup({
+    inventory: new FormControl('', Validators.required),
+  });
 
   constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.currentFilm.inventory);
+  ngOnInit(): void {}
+
+  ngOnChanges(): void {
     this.inventory = this.currentFilm.inventory;
   }
-  onSubmit(form: NgForm): void {
-    const inventoryId = this.currentFilm.inventory[form.value.inventory][0];
+
+  get f() {
+    return this.form.controls;
+  }
+
+  changeInventory(e: any): void {
+    this.inventoryLocation = e.target.value;
+  }
+  onSubmit(): void {
+    const inventoryId = this.currentFilm.inventory[this.inventoryLocation][0];
     const filmId = this.currentFilm.filmId;
     const customerId = ENV.MODEL_CUSTOMER.customerId;
-    console.log(inventoryId, filmId, customerId);
+
+    if (!customerId) {
+      alert('Please log in');
+    }
+    const rental: Rental = {
+      inventoryId: inventoryId,
+      filmId: filmId,
+      customerId: customerId,
+    };
+    this.onRentFilm.emit(rental);
   }
 }

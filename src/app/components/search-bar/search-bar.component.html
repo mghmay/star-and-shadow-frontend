@@ -1,11 +1,26 @@
 <div class="search-container">
   <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="search-form">
+    <select class="form-control" (change)="changeCategory($event)">
+      <option [defaultSelected]="true" value="{{ default }}">All films</option>
+      <option
+        *ngFor="let category of categories | keyvalue"
+        value="{{ category.value }}"
+      >
+        {{ category.key }}
+      </option>
+    </select>
     <input
       type="text"
       class="search-input"
       name="search"
       ngModel
-      placeholder="Search films"
+      placeholder="Search {{
+        currentCategory === 'classics'
+          ? 'classic '
+          : currentCategory === ''
+          ? ''
+          : currentCategory + ' '
+      }}films"
     />
     <button class="search-button">Submit</button>
   </form>

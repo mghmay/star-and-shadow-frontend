@@ -19,8 +19,7 @@ export const environment = {
   },
   CATEGORY_MODEL: {
     data: {
-      'All film': '',
-      Action: 'action',
+      'All films': '',
       Animation: 'animation',
       Children: 'children',
       Classics: 'classics',
@@ -36,6 +35,7 @@ export const environment = {
       'Sci-Fi': 'scifi',
       Sports: 'sports',
       Travel: 'travel',
+      Action: 'action',
     },
   },
 };

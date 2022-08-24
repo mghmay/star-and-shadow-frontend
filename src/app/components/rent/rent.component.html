@@ -7,7 +7,6 @@
       (change)="changeInventory($event)"
     >
       <option disabled>Select a store</option>
-      <option>Choose a store</option>
       <option *ngFor="let item of inventory | keyvalue">
         {{ item.key }}
       </option>

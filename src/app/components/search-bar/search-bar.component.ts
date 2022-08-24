@@ -10,6 +10,7 @@ import { environment as ENV } from 'src/environments/environment';
 })
 export class SearchBarComponent implements OnInit {
   categories: object = ENV.CATEGORY_MODEL.data;
+  default: string = '';
   currentCategory: string = '';
 
   constructor(private router: Router) {}

@@ -1,12 +1,24 @@
-<div class="search-container">
-  <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="search-form">
-    <input
-      type="text"
-      class="search-input"
-      name="search"
-      ngModel
-      placeholder="Search films"
-    />
-    <button class="search-button">Submit</button>
+<div class="rent-container" (currentFilm)="(currentFilm)">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="rent-form">
+    <label for="inventory">Pick a rental store:</label>
+    <select
+      formControlName="inventory"
+      class="form-control"
+      (change)="changeInventory($event)"
+    >
+      <option disabled>Select a store</option>
+      <option *ngFor="let item of inventory | keyvalue">
+        {{ item.key }}
+      </option>
+    </select>
+    <div
+      *ngIf="f.inventory.touched && f.inventory.invalid"
+      class="alert alert-danger"
+    >
+      <div *ngIf="f['inventory'].errors?.['required']">Store is required.</div>
+    </div>
+    <button class="rent-button" type="submit" [disabled]="!form.valid">
+      Rent it!
+    </button>
   </form>
 </div>

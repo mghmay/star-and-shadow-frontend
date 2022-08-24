@@ -4,7 +4,6 @@
     max-width: 1200px;
   }
   &-input {
-    margin-left: 10px;
     padding: 10px;
     width: 300px;
     outline: none;
@@ -14,12 +13,19 @@
   &-button {
     border: none;
     outline: none;
-    background: blue;
+    background: lawngreen;
     padding: 10px;
     border-left: 1px solid black;
-    color: white;
+    color: black;
     font-weight: 500;
     transition-duration: 0.3s;
     cursor: pointer;
   }
+}
+.form-control {
+  height: 35px;
+  border: none;
+  background-color: whitesmoke;
+  border-right: 1px gray solid;
+  margin-right: 0;
 }

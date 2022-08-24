@@ -13,15 +13,21 @@ export class FilmService {
   url: string = ' http://localhost:3000/data';
   constructor(private httpClient: HttpClient) {}
 
-  getFilmList(search?: string): Observable<APIResponse<Film>> {
-    if (search) {
-      console.log(search);
-      return this.httpClient.get<APIResponse<Film>>(
-        `${ENV.API_URL}/films/search/title?title=${search}`
-      );
-    } else {
-      return this.httpClient.get<APIResponse<Film>>(`${ENV.API_URL}/films/`);
-    }
+  getFilmList(
+    page: number,
+    category?: string,
+    title?: string
+  ): Observable<APIResponse<Film>> {
+    let params = new HttpParams();
+    params = params.append('pageNo', page);
+    title ? (params = params.append('title', title)) : null;
+    category ? (params = params.append('category', category)) : null;
+
+    const requestOptions = { params: params };
+    return this.httpClient.get<APIResponse<Film>>(
+      `${this.apiUrl}/films`,
+      requestOptions
+    );
   }
 
   searchByFilmId(filmId: number): Observable<Film> {

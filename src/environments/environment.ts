@@ -17,6 +17,27 @@ export const environment = {
   STAFF_MODEL: {
     staffId: 2,
   },
+  CATEGORY_MODEL: {
+    data: {
+      'All film': '',
+      Action: 'action',
+      Animation: 'animation',
+      Children: 'children',
+      Classics: 'classics',
+      Comedy: 'comedy',
+      Documentary: 'documentary',
+      Drama: 'drama',
+      Family: 'family',
+      Foreign: 'foreign',
+      Games: 'games',
+      Horror: 'horror',
+      Music: 'music',
+      New: 'new',
+      'Sci-Fi': 'scifi',
+      Sports: 'sports',
+      Travel: 'travel',
+    },
+  },
 };
 
 /*

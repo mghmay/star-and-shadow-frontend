@@ -13,7 +13,10 @@ import { FilmService } from 'src/app/services/film.service';
 export class HomeComponent implements OnInit {
   public films: Array<Film> = [];
   filmSub: Subscription = new Subscription();
+  querySub: Subscription = new Subscription();
   routeSub: Subscription = new Subscription();
+  search: string = '';
+  page: number = 0;
 
   constructor(
     private router: Router,
@@ -23,6 +26,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.routeSub = this.activatedRoute.params.subscribe((params) => {
+      this.searchFilms(this.page, params['category']);
+    });
+    this.querySub = this.activatedRoute.queryParams.subscribe((params) => {
       this.searchFilms(params['title']);
     });
   }
@@ -31,14 +37,14 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['about', id]);
   }
 
-  searchFilms(search?: string): void {
+  searchFilms(page: number, search?: string): void {
     this.filmSub = this.filmService
-      .getFilmList(search)
+      .getFilmList(page, search)
       .subscribe((response: APIResponse<Film>) => {
         this.films = response.data;
       });
   }
-    ngOnDestroy(): void {
+  ngOnDestroy(): void {
     if (this.routeSub) {
       this.routeSub.unsubscribe();
     }

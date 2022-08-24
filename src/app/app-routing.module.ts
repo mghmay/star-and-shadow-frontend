@@ -5,8 +5,11 @@ import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  {
+    path: ':category',
+    component: HomeComponent,
+  },
   { path: 'about/:filmId', component: AboutComponent },
-  { path: 'search/:title', component: HomeComponent },
 ];
 
 @NgModule({

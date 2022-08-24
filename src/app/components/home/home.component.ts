@@ -38,4 +38,15 @@ export class HomeComponent implements OnInit {
         this.films = response.data;
       });
   }
+    ngOnDestroy(): void {
+    if (this.routeSub) {
+      this.routeSub.unsubscribe();
+    }
+    if (this.filmSub) {
+      this.filmSub.unsubscribe();
+    }
+    if (this.querySub) {
+      this.querySub.unsubscribe();
+    }
+  }
 }

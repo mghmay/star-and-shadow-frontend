@@ -15,8 +15,8 @@ export class FilmService {
 
   getFilmList(
     page: number,
-    category?: string,
-    title?: string
+    title?: string,
+    category?: string
   ): Observable<APIResponse<Film>> {
     let params = new HttpParams();
     params = params.append('pageNo', page);

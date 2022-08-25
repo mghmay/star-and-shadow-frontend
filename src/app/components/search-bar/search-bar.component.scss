@@ -2,6 +2,7 @@
   &-form {
     width: 100%;
     max-width: 1200px;
+    display: flex;
   }
   &-input {
     padding: 10px;
@@ -23,7 +24,7 @@
   }
 }
 .form-control {
-  height: 35px;
+  height: 36px;
   border: none;
   background-color: whitesmoke;
   border-right: 1px gray solid;

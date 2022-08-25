@@ -12,10 +12,13 @@ import { FilmService } from 'src/app/services/film.service';
 })
 export class HomeComponent implements OnInit {
   public films: Array<Film> = [];
+  public loading: boolean = false;
   filmSub: Subscription = new Subscription();
   querySub: Subscription = new Subscription();
   routeSub: Subscription = new Subscription();
-  search: string = '';
+  scrollSub: Subscription = new Subscription();
+  title: string = '';
+  category: string = '';
   page: number = 0;
 
   constructor(
@@ -25,11 +28,12 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.routeSub = this.activatedRoute.params.subscribe((params) => {
-      this.searchFilms(this.page, params['category']);
-    });
-    this.querySub = this.activatedRoute.queryParams.subscribe((params) => {
-      this.searchFilms(params['title']);
+    this.loading = true;
+    this.routeSub = this.activatedRoute.queryParams.subscribe((params) => {
+      this.title = params['title'];
+      this.category = params['category'];
+      this.searchFilms(this.page, this.title, this.category);
+      this.loading = false;
     });
   }
 
@@ -37,9 +41,19 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['about', id]);
   }
 
-  searchFilms(page: number, search?: string): void {
+  onScroll(): void {
+    this.loading = true;
     this.filmSub = this.filmService
-      .getFilmList(page, search)
+      .getFilmList(this.page++, this.title, this.category)
+      .subscribe((response: APIResponse<Film>) => {
+        response.data.forEach((film) => this.films.push(film));
+        this.loading = false;
+      });
+  }
+
+  searchFilms(page: number, title?: string, category?: string): void {
+    this.filmSub = this.filmService
+      .getFilmList(page, title, category)
       .subscribe((response: APIResponse<Film>) => {
         this.films = response.data;
       });

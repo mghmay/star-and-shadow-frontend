@@ -9,7 +9,7 @@ import { environment as ENV } from 'src/environments/environment';
   styleUrls: ['./search-bar.component.scss'],
 })
 export class SearchBarComponent implements OnInit {
-  categories: object = ENV.CATEGORY_MODEL.data;
+  categories: string[] = ENV.CATEGORY_MODEL.data;
   default: string = '';
   currentCategory: string = '';
 
@@ -19,20 +19,18 @@ export class SearchBarComponent implements OnInit {
 
   changeCategory(e: any): void {
     this.currentCategory = e.target.value;
-    this.router.navigate([this.currentCategory]);
+    this.router.navigate([''], {
+      queryParams: { category: e.target.value },
+      queryParamsHandling: 'merge',
+    });
   }
 
   onSubmit(form: NgForm): void {
     if (form.value.search !== '') {
-      if (this.currentCategory !== '') {
-        this.router.navigate([this.currentCategory], {
-          queryParams: { title: form.value.search },
-        });
-      } else {
-        this.router.navigate([''], {
-          queryParams: { title: form.value.search },
-        });
-      }
+      this.router.navigate([''], {
+        queryParams: { title: form.value.search },
+        queryParamsHandling: 'merge',
+      });
     }
     form.reset();
   }

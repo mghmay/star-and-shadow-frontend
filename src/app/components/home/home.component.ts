@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Film } from 'src/app/interfaces/film';
 import { APIResponse } from 'src/app/interfaces/http';
 import { FilmService } from 'src/app/services/film.service';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,6 @@ import { FilmService } from 'src/app/services/film.service';
 })
 export class HomeComponent implements OnInit {
   public films: Array<Film> = [];
-  public loading: boolean = false;
   filmSub: Subscription = new Subscription();
   querySub: Subscription = new Subscription();
   routeSub: Subscription = new Subscription();
@@ -24,16 +24,16 @@ export class HomeComponent implements OnInit {
   constructor(
     private router: Router,
     private filmService: FilmService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private loader: LoadingService
   ) {}
 
   ngOnInit(): void {
-    this.loading = true;
+    console.log(this.loader);
     this.routeSub = this.activatedRoute.queryParams.subscribe((params) => {
       this.title = params['title'];
       this.category = params['category'];
       this.searchFilms(this.page, this.title, this.category);
-      this.loading = false;
     });
   }
 
@@ -42,12 +42,10 @@ export class HomeComponent implements OnInit {
   }
 
   onScroll(): void {
-    this.loading = true;
     this.filmSub = this.filmService
       .getFilmList(this.page++, this.title, this.category)
       .subscribe((response: APIResponse<Film>) => {
         response.data.forEach((film) => this.films.push(film));
-        this.loading = false;
       });
   }
 

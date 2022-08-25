@@ -5,6 +5,7 @@ import { Film } from 'src/app/interfaces/film';
 import { APIResponse } from 'src/app/interfaces/http';
 import { Rental } from 'src/app/interfaces/inventory';
 import { FilmService } from 'src/app/services/film.service';
+import { LoadingService } from 'src/app/services/loading.service';
 import { RentalService } from 'src/app/services/rental.service';
 
 @Component({
@@ -15,12 +16,15 @@ import { RentalService } from 'src/app/services/rental.service';
 export class AboutComponent implements OnInit {
   filmSub: Subscription = new Subscription();
   rentalSub: Subscription = new Subscription();
+  loadingSub: Subscription = new Subscription();
   film: Film = {} as Film;
   rental: Rental = {} as Rental;
+  loading: boolean = false;
   constructor(
     private filmService: FilmService,
     private rentalService: RentalService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private loader: LoadingService
   ) {}
 
   ngOnInit(): void {
@@ -28,6 +32,9 @@ export class AboutComponent implements OnInit {
       if (params['filmId']) {
         this.getAboutFilm(params['filmId']);
       }
+    });
+    this.loadingSub = this.loader.loading.subscribe((loading) => {
+      this.loading = loading;
     });
   }
 
@@ -49,5 +56,16 @@ export class AboutComponent implements OnInit {
           alert('Hmm, something went wrong' + response.message);
         }
       });
+  }
+  ngOnDestroy(): void {
+    if (this.loadingSub) {
+      this.loadingSub.unsubscribe();
+    }
+    if (this.filmSub) {
+      this.filmSub.unsubscribe();
+    }
+    if (this.rentalSub) {
+      this.rentalSub.unsubscribe();
+    }
   }
 }

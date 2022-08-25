@@ -1,6 +1,6 @@
 <div class="about-container">
   <h1 class="about-title">{{ film.title }}</h1>
-  <p class="about-info">
+  <p class="about-info" *ngIf="!loading">
     <span class="about-rating">{{ film.rating }}</span> /
     <span
       class="about-category"
@@ -25,11 +25,15 @@
       >{{ member | titlecase }}<span *ngIf="!last">, </span></span
     >
   </p>
-  <p class="about-features">
+  <p class="about-features" *ngIf="!loading">
     Special features:
     <span *ngFor="let feature of film.specialFeatures; let last = last"
       >{{ feature | titlecase }}<span *ngIf="!last">, </span></span
     >
   </p>
-  <app-rent [currentFilm]="film" (onRentFilm)="rentFilm($event)"></app-rent>
+  <app-rent
+    *ngIf="!loading"
+    [currentFilm]="film"
+    (onRentFilm)="rentFilm($event)"
+  ></app-rent>
 </div>

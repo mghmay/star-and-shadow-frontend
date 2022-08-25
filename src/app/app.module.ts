@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -27,6 +29,7 @@ import { RentComponent } from './components/rent/rent.component';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    InfiniteScrollModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

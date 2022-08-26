@@ -19,7 +19,6 @@ export class RentalService {
   constructor(private http: HttpClient) {}
 
   postRental(rental: Rental): Observable<Object> {
-    console.log(rental);
     return this.http.post(this.apiUrl, JSON.stringify(rental), httpOptions);
   }
 }

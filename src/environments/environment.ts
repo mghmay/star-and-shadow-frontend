@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  API_URL: 'http://localhost:8080',
+  API_URL:
+    'http://starandshadowbackend-env.eba-3vt332zd.us-east-1.elasticbeanstalk.com',
   MODEL_CUSTOMER: {
     customerId: 1,
     storeId: 1,

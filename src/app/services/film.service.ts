@@ -10,7 +10,6 @@ import { APIResponse } from '../interfaces/http';
 })
 export class FilmService {
   apiUrl = ENV.API_URL;
-  url: string = ' http://localhost:3000/data';
   constructor(private httpClient: HttpClient) {}
 
   getFilmList(
